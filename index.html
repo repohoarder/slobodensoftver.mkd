@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Конфигурација на кирилични домени</title>
+    <script src="punycode.min.js"></script>
+  </head>
+  <body>
+    <h1>Кирилични домени</h1>
+    <p>Во првата половина на 2014 година Македонската Академска Истражувачка Мрежа (МАРнет) успешно ја заврши процедурата за регистрација и ICANN ја делегираше .мкд зоната на МАРнет со што може да се регистрираат и функционираат кирилични домени пр. македонија.мкд, слободенсофтвер.мкд.</p>
+  
+    <h3>Кирилица<->Punnycode</h3>
+    <p>Конверзија на кирично име во punnycode име за конфигурација на веб сервери, зони...</p>
+    <p>
+        <input type="text" id="kirilica" />
+        <span id="punnycode"></span>
+    </p>
+
+    <h2>Авторитативни DNS сервери</h2>
+    <h3>Bind зона</h3>
+    Пример на конфигурација на Bind compatible зона.
+    <pre>
+    ;слободенсофтвер.мкд
+    xn--90acfeb5arebdybhp3a.xn--d1alf. 86400 IN SOA ns0.dnsmadeeasy.com. dns.dnsmadeeasy.com. 2014041601 43200 3600 1209600 180
+
+    xn--90acfeb5arebdybhp3a.xn--d1alf. 86400 IN NS ns0.slobodensoftver.org.mk.
+    xn--90acfeb5arebdybhp3a.xn--d1alf. 86400 IN NS ns1.slobodensoftver.org.mk.
+    xn--90acfeb5arebdybhp3a.xn--d1alf. 86400 IN NS ns2.slobodensoftver.org.mk.
+    xn--90acfeb5arebdybhp3a.xn--d1alf. 86400 IN NS ns3.slobodensoftver.org.mk.
+    xn--90acfeb5arebdybhp3a.xn--d1alf. 86400 IN NS ns4.slobodensoftver.org.mk.
+
+    ;
+    xn--90acfeb5arebdybhp3a.xn--d1alf. 1800 IN A 1.2.3.4
+    </pre>
+
+    <h2>Веб сервери</h2>
+    <h3>Apache веб сервер</h3>
+    <p>vhosts.conf пример</p>
+
+    <h3>Nginx веб сервер</h3>
+    <p>..</p>
+  </body>
+</html>
+
