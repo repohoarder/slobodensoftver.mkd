@@ -1,44 +1,101 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title>Конфигурација на кирилични домени</title>
-    <script src="punycode.min.js"></script>
-  </head>
-  <body>
-    <h1>Кирилични домени</h1>
-    <p>Во првата половина на 2014 година Македонската Академска Истражувачка Мрежа (МАРнет) успешно ја заврши процедурата за регистрација и ICANN ја делегираше .мкд зоната на МАРнет со што може да се регистрираат и функционираат кирилични домени пр. македонија.мкд, слободенсофтвер.мкд.</p>
-  
-    <h3>Кирилица<->Punnycode</h3>
-    <p>Конверзија на кирично име во punnycode име за конфигурација на веб сервери, зони...</p>
-    <p>
-        <input type="text" id="kirilica" />
-        <span id="punnycode"></span>
-    </p>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <h2>Авторитативни DNS сервери</h2>
-    <h3>Bind зона</h3>
-    Пример на конфигурација на Bind compatible зона.
-    <pre>
-    ;слободенсофтвер.мкд
-    xn--90acfeb5arebdybhp3a.xn--d1alf. 86400 IN SOA ns0.dnsmadeeasy.com. dns.dnsmadeeasy.com. 2014041601 43200 3600 1209600 180
+        <title>Кирилични домени</title>
 
-    xn--90acfeb5arebdybhp3a.xn--d1alf. 86400 IN NS ns0.slobodensoftver.org.mk.
-    xn--90acfeb5arebdybhp3a.xn--d1alf. 86400 IN NS ns1.slobodensoftver.org.mk.
-    xn--90acfeb5arebdybhp3a.xn--d1alf. 86400 IN NS ns2.slobodensoftver.org.mk.
-    xn--90acfeb5arebdybhp3a.xn--d1alf. 86400 IN NS ns3.slobodensoftver.org.mk.
-    xn--90acfeb5arebdybhp3a.xn--d1alf. 86400 IN NS ns4.slobodensoftver.org.mk.
+        <link href="css/kube.min.css" rel="stylesheet">
+        <link href="css/style.css" rel="stylesheet">
 
-    ;
-    xn--90acfeb5arebdybhp3a.xn--d1alf. 1800 IN A 1.2.3.4
-    </pre>
+        <script src="js/punycode.min.js"></script>
+        <script src="js/jquery-1.11.0.min.js"></script>
+        <script src="js/script.js"></script>
+        <script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
+    </head>
+    <body>
+    <div id="container">
+        <h1 id="domeni">Кирилични домени</h1>
+        <p>Во првата половина на 2014 година Македонската Академска Истражувачка Мрежа (МАРнет) успешно ја заврши процедурата за регистрација и ICANN ја делегираше .мкд зоната на МАРнет со што може да се регистрираат и функционираат кирилични домени пр. македонија.мкд, слободенсофтвер.мкд.</p>
 
-    <h2>Веб сервери</h2>
-    <h3>Apache веб сервер</h3>
-    <p>vhosts.conf пример</p>
+        <p>Оваа страница е направена да ги собере на едно место информациите и да ѝ помогне на македонската техничка јавност во конфигурацијата на системите за поддршка на .мкд кирилични домени.</p>
 
-    <h3>Nginx веб сервер</h3>
-    <p>..</p>
+        <p>Кириличните домени се <a href="https://en.wikipedia.org/wiki/Internationalized_domain_name">интернационализирани</a> имиња на домени (IDN) исто како што се и домените на арапски и кинески. Сите интернационализирани имиња во системот на домени еднозначно се кодираат во т.н <a href="https://en.wikipedia.org/wiki/Punycode">Punnycode</a> кој е ascii репрезентација на имињата. </p>
+
+        <p>Пример punnycode кодирање на .мкд врвниот македонски домен е: xn--d1alfs.</p>
+        
+        <h3 id="konverzija">Конверзија Кирилица<->Punnycode</h3>
+        <h3 id="konverzija-web" class="subheading">Веб</h3>
+
+        <p>Може да го користите овој веб сервис за конверзија на кирилично име во punnycode име за конфигурација на веб сервери, зони... Внесете го името во полето Кирилица и во следното поле ќе го добиете punnycode-от.</p> 
+
+        <form>
+        <input type="text" id="kirilica" name="kirilica" placeholder="Кирилица" class="width-20"/>
+        <input type="text" id="punnycode" name="punnycode" placeholder="Punnycode" readonly class="width-35"/>
+        </form>
+
+        <h3 id="konverzija-cli" class="subheading">Linux cli</h3>
+        <p>На Linux системи постојат алатки кои прават конверзија.</p>
+<pre class="prettyprint lang-bash width-50">#centos, rhel, fedora
+$ sudo yum install libidn
+
+#debian, ubuntu
+$ sudo apt-get install libidn
+
+#archlinux
+$ sudo pacman -S libidn
+
+$ idn слободенсофтвер.мкд
+xn--90acfeb5arebdybhp3a.xn--d1alf
+
+$idn македонија.мкд
+xn--80aaldqjmmi6x.xn--d1alf
+</pre>
+
+        <h3 id="dns">Авторитативни DNS сервери</h3>
+        <h3 id="dns-bind" class="subheading">Bind зона</h3>
+            Пример на конфигурација на Bind compatible (RFC1035) зона. Bind компатибилни зони користат голем дел од авторитативните домен сервери меѓу кои <a href="https://www.isc.org/downloads/bind/">Bind</a>, <a href="https://www.powerdns.com/auth.html">PowerDNS</a>, <a href="https://www.nlnetlabs.nl/projects/nsd/">NSD</a>.
+        <pre class="prettyprint">
+;слободенсофтвер.мкд
+$ORIGIN xn--90acfeb5arebdybhp3a.xn--d1alf.
+$TTL 1h
+xn--90acfeb5arebdybhp3a.xn--d1alf.  IN  SOA  ns0.slobodensoftver.org.mk. info.slobodensoftver.org.mk. (
+              2014042001 ; serial number of this zone file
+              1d         ; slave refresh (1 day)
+              2h         ; slave retry time in case of a problem (2 hours)
+              4w         ; slave expiration time (4 weeks)
+              1h         ; maximum caching time in case of failed lookups (1 hour)
+              )
+
+xn--90acfeb5arebdybhp3a.xn--d1alf. 86400 IN NS ns0.slobodensoftver.org.mk.
+xn--90acfeb5arebdybhp3a.xn--d1alf. 86400 IN NS ns1.slobodensoftver.org.mk.
+
+xn--90acfeb5arebdybhp3a.xn--d1alf. 1800 IN A 127.0.0.1
+        </pre>
+
+        <h3 id="web-serveri">Веб сервери</h3>
+        <h3 id="web-apache" class="subheading">Apache веб сервер</h3>
+        <p>Сегмент од конфигурација на Apache веб сервер за кириличен виртуелен хост.</p>
+        <pre class="prettyprint">
+&lt;VirtualHost *:80&gt;
+  DocumentRoot /var/www/html
+  ServerName xn--90acfeb5arebdybhp3a.xn--d1alf
+&lt;/VirtualHost&gt;
+</pre>
+
+        <h3 id="web-nginx" class="subheading">Nginx веб сервер</h3>
+        <p>Сегмент од Nginx веб сервер за кириличен сервер.</p>
+        <pre class="prettyprint">
+server {
+    listen          80;
+    server_name     xn--90acfeb5arebdybhp3a.xn--d1alf;
+    ...
+}
+</pre>
+
+
+    </div>
   </body>
 </html>
 
