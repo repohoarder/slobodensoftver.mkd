@@ -13,3 +13,9 @@ pre {
     overflow: auto;
     border-radius: 4px;
 }
+
+#container {
+    width: 61%;
+    margin-left: auto ;
+    margin-right: auto ;
+}

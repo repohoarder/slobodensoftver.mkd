@@ -30,14 +30,14 @@
 
         <p>Може да го користите овој веб сервис за конверзија на кирилично име во punnycode име за конфигурација на веб сервери, зони... Внесете го името во полето Кирилица и во следното поле ќе го добиете punnycode-от.</p> 
 
-        <form>
-        <input type="text" id="kirilica" name="kirilica" placeholder="Кирилица" class="width-20"/>
-        <input type="text" id="punnycode" name="punnycode" placeholder="Punnycode" readonly class="width-35"/>
+        <form class="text-centered">
+        <input type="text" id="kirilica" name="kirilica" placeholder="Кирилица" class="width-35"/>
+        <input type="text" id="punnycode" name="punnycode" placeholder="Punnycode" readonly class="width-50"/>
         </form>
 
         <h3 id="konverzija-cli" class="subheading">Linux cli</h3>
         <p>На Linux системи постојат алатки кои прават конверзија.</p>
-<pre class="prettyprint lang-bash width-50">#centos, rhel, fedora
+<pre class="prettyprint lang-bash">#centos, rhel, fedora
 $ sudo yum install libidn
 
 #debian, ubuntu
