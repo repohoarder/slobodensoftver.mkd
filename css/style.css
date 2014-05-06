@@ -4,6 +4,10 @@ body {
     padding: 0.5em;
 }
 
+h1 { 
+    padding-top: 0.5em; 
+}
+
 pre {
     font-family: Monaco,Menlo,Consolas,"Courier New",monospace;
     margin: 0.1em 0.1em 1em;
